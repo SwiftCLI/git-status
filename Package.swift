@@ -4,20 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "bucket-status",
+    name: "git-status",
+    platforms: [.macOS(.v10_15)],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "0.4.0")),
+        .package(url: "https://github.com/OpenCombine/OpenCombine.git", .upToNextMajor(from: "0.12.0")),
+        .package(url: "https://github.com/scottrhoyt/SwiftyTextTable.git", .upToNextMajor(from: "0.5.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "bucket-status",
-            dependencies: [.product(name: "ArgumentParser", package: "swift-argument-parser")]),
+            name: "git-status",
+            dependencies: ["OpenCombineShim",
+                           "SwiftyTextTable",
+                           "Alamofire",
+                           .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                           .product(name: "OpenCombineFoundation", package: "OpenCombine"),
+                           .product(name: "OpenCombineDispatch", package: "OpenCombine")]),
         .testTarget(
-            name: "bucket-statusTests",
-            dependencies: ["bucket-status"]),
+            name: "git-statusTests",
+            dependencies: ["git-status"]),
     ]
 )
