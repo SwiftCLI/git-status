@@ -13,14 +13,14 @@ import OpenCombineDispatch
 @available(macOS 10.15, *)
 class BitbucketViewModel {
     // MARK: - Input
-    @OpenCombineShim.Published
+    @Published
     var loadData: Void?
     
     // MARK: - Output
-    @OpenCombineShim.Published
+    @Published
     var response: BitbucketResponse?
     
-    @OpenCombineShim.Published
+    @Published
     var error: Error?
     
     var disposeBag = Set<OpenCombineShim.AnyCancellable>()
