@@ -8,7 +8,5 @@
 import Foundation
 
 extension URLSession {
-    #if os(Linux)
-    static let shared = URLSession(configuration: .default)
-    #endif
+    static let `default` = URLSession(configuration: .default)
 }
