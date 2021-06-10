@@ -24,9 +24,10 @@ class BitbucketViewModel {
     var error: Error?
     
     var disposeBag = Set<OpenCombineShim.AnyCancellable>()
+    private let urlSession = URLSession(configuration: .default)
     init() {
         $loadData
-            .flatMap(maxPublishers: .max(1)) { _ in URLSession.default.dataTaskPublisher(for: URL(string: Constants.bitbucketURL)!)
+            .flatMap(maxPublishers: .max(1)) { _ in self.urlSession.dataTaskPublisher(for: URL(string: Constants.bitbucketURL)!)
                 .retry(3)
                 .tryMap() { element -> Data in
                     guard let httpResponse = element.response as? HTTPURLResponse,
@@ -43,9 +44,9 @@ class BitbucketViewModel {
                 }
             }
             .eraseToAnyPublisher()
-            .sink(receiveValue: { [weak self] response in
+            .sink { [weak self] response in
                 self?.response = response
-            })
+            }
             .store(in: &disposeBag)
     }
 }
