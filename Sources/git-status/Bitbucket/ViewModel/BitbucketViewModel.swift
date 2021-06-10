@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 import OpenCombineShim
 import OpenCombineFoundation
 import OpenCombineDispatch
@@ -27,7 +26,7 @@ class BitbucketViewModel {
     var disposeBag = Set<OpenCombineShim.AnyCancellable>()
     init() {
         $loadData
-            .flatMap(maxPublishers: .max(1)) { _ in URLSession.shared.dataTaskPublisher(for: try! BitbucketAPIRouter().asURLRequest())
+            .flatMap(maxPublishers: .max(1)) { _ in URLSession.shared.dataTaskPublisher(for: URL(string: Constants.bitbucketURL)!)
                 .retry(3)
                 .tryMap() { element -> Data in
                     guard let httpResponse = element.response as? HTTPURLResponse,

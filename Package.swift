@@ -11,7 +11,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMajor(from: "0.4.0")),
         .package(url: "https://github.com/OpenCombine/OpenCombine.git", .upToNextMajor(from: "0.12.0")),
         .package(url: "https://github.com/scottrhoyt/SwiftyTextTable.git", .upToNextMajor(from: "0.5.0"))
@@ -23,7 +22,6 @@ let package = Package(
             name: "git-status",
             dependencies: ["OpenCombineShim",
                            "SwiftyTextTable",
-                           "Alamofire",
                            .product(name: "ArgumentParser", package: "swift-argument-parser"),
                            .product(name: "OpenCombineFoundation", package: "OpenCombine"),
                            .product(name: "OpenCombineDispatch", package: "OpenCombine")]),

@@ -8,13 +8,7 @@
 import Foundation
 
 class Constants {
-    enum Host: String {
-        case bitbucket = "https://bqlf8qjztdtr.statuspage.io"
-    }
-
-    enum Path: String {
-        case summary = "api/v2/summary.json"
-    }
+    static let bitbucketURL = "https://bqlf8qjztdtr.statuspage.io/api/v2/summary.json"
 }
 
 
