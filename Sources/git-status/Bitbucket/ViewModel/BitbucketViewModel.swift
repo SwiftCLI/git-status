@@ -24,7 +24,7 @@ class BitbucketViewModel {
     var error: Error?
     
     var disposeBag = Set<OpenCombineShim.AnyCancellable>()
-    private let urlSession = URLSession(configuration: .default)
+    
     init() {
         $loadData
             .sink { [weak self] _ in
