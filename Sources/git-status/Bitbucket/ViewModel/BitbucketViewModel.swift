@@ -27,25 +27,15 @@ class BitbucketViewModel {
     private let urlSession = URLSession(configuration: .default)
     init() {
         $loadData
-            .flatMap(maxPublishers: .max(1)) { _ in self.urlSession.dataTaskPublisher(for: URL(string: Constants.bitbucketURL)!)
-                .retry(3)
-                .tryMap() { element -> Data in
-                    guard let httpResponse = element.response as? HTTPURLResponse,
-                        httpResponse.statusCode == 200 else {
-                            throw URLError(.badServerResponse)
-                        }
-                    return element.data
-                    }
-                .decode(type: BitbucketResponse.self, decoder: JSONDecoder())
-                .catch { [weak self] error -> OpenCombineShim.Empty<BitbucketResponse, Never> in
-                    self?.error = error
-                    return OpenCombineShim.Empty.init(completeImmediately: true)
+            .sink { [weak self] _ in
+                do {
+                    let data = try Data(contentsOf: URL(string: Constants.bitbucketURL)!)
+                    let response = try JSONDecoder().decode(BitbucketResponse.self, from: data)
                     
+                    self?.response = response
+                } catch {
+                    self?.error = error
                 }
-            }
-            .eraseToAnyPublisher()
-            .sink { [weak self] response in
-                self?.response = response
             }
             .store(in: &disposeBag)
     }
