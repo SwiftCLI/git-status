@@ -6,6 +6,9 @@ import PackageDescription
 let package = Package(
     name: "git-status",
     platforms: [.macOS(.v10_15)],
+    products: [
+        .executable(name: "git-status", targets: ["git-status"]),
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.2.0")),
