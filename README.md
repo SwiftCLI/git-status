@@ -8,10 +8,24 @@
 Simple CLI written by Swift to check the health status of Git providers such as Github, GitLab, Bitbucket. Supporting macOS & Linux, not yet tested on Windows but it should work as well. This repo is still being developed, feel free to contribute 💖
 
 ## Installation
-[Mint](https://github.com/yonaskolb/mint) is designed to be used with Swift command line tools that build with the Swift Package Manager. It makes installing, running and distributing these tools much easier.
+### Mint:
+Install directly to your system by [Mint](https://github.com/yonaskolb/mint):
 
 ```
 $ mint install SwiftCLI/git-status
+```
+### Docker:
+
+You also can build an image from the Dockerfile:
+
+```
+$ docker build . --tag git-status
+```
+
+Then run the container:
+
+```
+$ docker run -it git-status
 ```
 
 ## Usage
